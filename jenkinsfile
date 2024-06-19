@@ -2,9 +2,11 @@ pipeline{
     agent any
         stages{
 
-             stage{
-                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/vinodabadiger/jen-py-dock.git'
-             }        
+            stage('checkout'){
+                steps{
+                    git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/vinodabadiger/jen-py-dock.git'
+                }  
+            }   
 
          }
 
