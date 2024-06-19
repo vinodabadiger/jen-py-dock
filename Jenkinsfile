@@ -25,7 +25,7 @@ pipeline{
             stage('push'){
                 steps{
                     withDockerRegistry(credentialsId: 'docker-cred', url: 'https://index.docker.io/v1/') {
-                      sh "docker push vinoda32/python:2" 
+                      sh 'docker push vinoda32/python:2'
                     }  
                }
 
