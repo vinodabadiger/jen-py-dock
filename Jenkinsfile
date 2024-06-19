@@ -14,6 +14,19 @@ pipeline{
                 }  
             } 
 
+            
+            stage('tag'){
+                steps{
+                    sh "docker tag python:2 vinoda32/python:2" 
+                }  
+            }
+
+             
+            stage('push'){
+                steps{
+                    sh "docker push vinoda32/python:2" 
+                }  
+            }
 
          }
 
