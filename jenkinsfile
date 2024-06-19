@@ -1,0 +1,11 @@
+pipeline{
+    agent any
+        stages{
+
+             stage{
+                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/vinodabadiger/pythondocker.git'
+             }        
+
+         }
+
+}
