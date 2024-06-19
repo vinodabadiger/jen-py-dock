@@ -3,7 +3,7 @@ pipeline{
         stages{
 
              stage{
-                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/vinodabadiger/pythondocker.git'
+                git branch: 'main', credentialsId: 'git-cred', url: 'https://github.com/vinodabadiger/jen-py-dock.git'
              }        
 
          }
