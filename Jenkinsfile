@@ -32,7 +32,7 @@ pipeline{
         
             stage('deploy'){
                 steps{
-                   sh "docker run -d -p 8000:8000 vinoda32/python:2"
+                   sh "docker run -d -p 8080:8080 vinoda32/python:2"
                 }
             }
 
