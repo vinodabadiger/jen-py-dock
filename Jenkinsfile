@@ -28,7 +28,8 @@ pipeline{
                       sh 'docker push vinoda32/python:2'
                     }  
                }
-
-         }
+            }
+        
+        }
 
 }
