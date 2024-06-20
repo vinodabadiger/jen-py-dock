@@ -21,13 +21,6 @@ pipeline{
                 }  
             } 
 
-            
-            stage('tag'){
-                steps{
-                    sh "docker tag python:3 vinoda32/python:3" 
-                }  
-            }
-
              
             stage('push'){
                 steps{
@@ -57,22 +50,22 @@ pipeline{
                                             ),
 
                                             sshTransfer(
-                                                    execCommand: "docker pull $img", 
+                                                    execCommand: "docker stop python ", 
                                                     execTimeout: 120000
                                             ),
 
                                             sshTransfer(
-                                                    execCommand: "docker stop $img", 
-                                                    execTimeout: 120000
-                                            ),
-
-                                            sshTransfer(
-                                                    execCommand: "docker rm $img", 
+                                                    execCommand: "docker rm python", 
                                                     execTimeout: 120000
                                             ),
 
                                              sshTransfer(
-                                                    execCommand: "docker run -d -p 8080:8080 $img", 
+                                                    execCommand: "docker pull $img", 
+                                                    execTimeout: 120000
+                                            ),
+
+                                             sshTransfer(
+                                                    execCommand: "docker run -d -p 8080:8080 --name=python $img", 
                                                     execTimeout: 120000
                                             ),
                                             
