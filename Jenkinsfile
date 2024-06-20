@@ -1,5 +1,9 @@
+def img
 pipeline{
     agent any
+    environment{
+    registry = "vinoda32/python"
+    }
         stages{
 
             stage('checkout'){
@@ -10,22 +14,25 @@ pipeline{
 
             stage('build'){
                 steps{
-                    sh "docker build -t python:3 ." 
+                    script{
+                    img = registry + ":${env.BUILD_ID}"
+                    sh "docker build -t $img ." 
+                    }
                 }  
             } 
 
             
-            stage('tag'){
-                steps{
-                    sh "docker tag python:3 vinoda32/python:3" 
-                }  
-            }
+            // stage('tag'){
+            //     steps{
+            //         sh "docker tag python:3 vinoda32/python:3" 
+            //     }  
+            // }
 
              
             stage('push'){
                 steps{
                     withDockerRegistry(credentialsId: 'docker-cred', url: 'https://index.docker.io/v1/') {
-                      sh 'docker push vinoda32/python:3'
+                      sh " docker push $img "
                     }  
                }
             }
