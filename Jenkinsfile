@@ -61,10 +61,21 @@ pipeline{
                                                     execTimeout: 120000
                                             ),
 
+                                            sshTransfer(
+                                                    execCommand: "docker stop $img", 
+                                                    execTimeout: 120000
+                                            ),
+
+                                            sshTransfer(
+                                                    execCommand: "docker rm $img", 
+                                                    execTimeout: 120000
+                                            ),
+
                                              sshTransfer(
                                                     execCommand: "docker run -d -p 8080:8080 $img", 
                                                     execTimeout: 120000
                                             ),
+                                            
                                         ], 
 
                                     usePromotionTimestamp: false, 
@@ -75,8 +86,15 @@ pipeline{
                         )
                     }
                 }
+           
+          
             }
 
+            stage('cleanup'){
+                steps{
+                   sh "docker rmi $img "
+                }  
+            }
         }
 
 }
