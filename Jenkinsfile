@@ -10,7 +10,7 @@ pipeline{
 
             stage('build'){
                 steps{
-                    sh "docker build -t python:3." 
+                    sh "docker build -t python:3 ." 
                 }  
             } 
 
@@ -38,16 +38,19 @@ pipeline{
                                 sshPublisherDesc(
                                     configName: 'production',
                                     verbose: true ,
-
-                                         transfers: [
+                                        transfers: [
                                             sshTransfer(
-                                                  execCommand: 'docker images', 
-                                                  execTimeout: 120000, 
+                                                    execCommand: 'docker images', 
+                                                    execTimeout: 120000
+                                            )
+
+                                            sshTransfer(
+                                                    execCommand: 'docker images', 
+                                                    execTimeout: 120000
                                             )
                                         ], 
-                                      usePromotionTimestamp: false, 
-                                      useWorkspaceInPromotion: false,
-                                      
+                                    usePromotionTimestamp: false, 
+                                    useWorkspaceInPromotion: false
                                     
                                 )
                             ]
