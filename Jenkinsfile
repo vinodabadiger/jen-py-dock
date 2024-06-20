@@ -10,14 +10,14 @@ pipeline{
 
             stage('build'){
                 steps{
-                    sh "docker build -t python:2 ." 
+                    sh "docker build -t python:3." 
                 }  
             } 
 
             
             stage('tag'){
                 steps{
-                    sh "docker tag python:2 vinoda32/python:2" 
+                    sh "docker tag python:3 vinoda32/python:3" 
                 }  
             }
 
@@ -25,7 +25,7 @@ pipeline{
             stage('push'){
                 steps{
                     withDockerRegistry(credentialsId: 'docker-cred', url: 'https://index.docker.io/v1/') {
-                      sh 'docker push vinoda32/python:2'
+                      sh 'docker push vinoda32/python:3'
                     }  
                }
             }
