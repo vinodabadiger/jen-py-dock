@@ -57,15 +57,11 @@ pipeline{
                                             ),
 
                                             sshTransfer(
-                                                    execCommand: 'docker pull', 
+                                                    execCommand: "docker pull $img", 
                                                     execTimeout: 120000
                                             ),
-
-                                            sshTransfer(
-                                                    execCommand: 'docker run', 
-                                                    execTimeout: 120000
-                                            )
                                         ], 
+
                                     usePromotionTimestamp: false, 
                                     useWorkspaceInPromotion: false
                                     
