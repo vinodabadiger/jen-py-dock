@@ -42,10 +42,10 @@ pipeline{
                                             sshTransfer(
                                                     execCommand: 'docker images', 
                                                     execTimeout: 120000
-                                            )
+                                            ),
 
                                             sshTransfer(
-                                                    execCommand: 'docker images', 
+                                                    execCommand: 'docker ps', 
                                                     execTimeout: 120000
                                             )
                                         ], 
