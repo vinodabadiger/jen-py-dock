@@ -60,6 +60,11 @@ pipeline{
                                                     execCommand: "docker pull $img", 
                                                     execTimeout: 120000
                                             ),
+
+                                             sshTransfer(
+                                                    execCommand: "docker run -d -p 8080:8080 $img", 
+                                                    execTimeout: 120000
+                                            ),
                                         ], 
 
                                     usePromotionTimestamp: false, 
