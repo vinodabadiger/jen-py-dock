@@ -32,23 +32,27 @@ pipeline{
         
             stage('ssh'){
                 steps{
-                   sshPublisher(
-                       publishers: [
-                           sshPublisherDesc(
-                              configName: 'production',
-                                 transfers: [
-                                   sshTransfer(
-                                      execCommand: 'docker images', 
-                                      execTimeout: 120000, 
-                                    )
-                                ], 
+                    script{
+                        sshPublisher(
+                            publishers: [
+                                sshPublisherDesc(
+                                    configName: 'production',
+                                    verbose: true ,
+
+                                         transfers: [
+                                            sshTransfer(
+                                                  execCommand: 'docker images', 
+                                                  execTimeout: 120000, 
+                                            )
+                                        ], 
                                       usePromotionTimestamp: false, 
                                       useWorkspaceInPromotion: false,
-                                      verbose: false
+                                      
                                     
-                            )
-                        ]
-                    )
+                                )
+                            ]
+                        )
+                    }
                 }
             }
 
