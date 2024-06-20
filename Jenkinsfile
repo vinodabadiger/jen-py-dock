@@ -30,9 +30,25 @@ pipeline{
                }
             }
         
-            stage('deploy'){
+            stage('ssh'){
                 steps{
-                   sh "docker run -d -p 8080:8080 vinoda32/python:2"
+                   sshPublisher(
+                       publishers: [
+                           sshPublisherDesc(
+                              configName: 'production',
+                                 transfers: [
+                                   sshTransfer(
+                                      execCommand: 'docker images', 
+                                      execTimeout: 120000, 
+                                    )
+                                ], 
+                                      usePromotionTimestamp: false, 
+                                      useWorkspaceInPromotion: false,
+                                      verbose: false
+                                    
+                            )
+                        ]
+                    )
                 }
             }
 
