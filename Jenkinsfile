@@ -22,11 +22,11 @@ pipeline{
             } 
 
             
-            // stage('tag'){
-            //     steps{
-            //         sh "docker tag python:3 vinoda32/python:3" 
-            //     }  
-            // }
+            stage('tag'){
+                steps{
+                    sh "docker tag python:3 vinoda32/python:3" 
+                }  
+            }
 
              
             stage('push'){
@@ -36,7 +36,7 @@ pipeline{
                     }  
                }
             }
-        
+
             stage('ssh'){
                 steps{
                     script{
@@ -53,6 +53,16 @@ pipeline{
 
                                             sshTransfer(
                                                     execCommand: 'docker ps', 
+                                                    execTimeout: 120000
+                                            ),
+
+                                            sshTransfer(
+                                                    execCommand: 'docker pull', 
+                                                    execTimeout: 120000
+                                            ),
+
+                                            sshTransfer(
+                                                    execCommand: 'docker run', 
                                                     execTimeout: 120000
                                             )
                                         ], 
