@@ -59,6 +59,16 @@ pipeline{
                                                     execTimeout: 120000
                                             ),
 
+                                            sshTransfer(
+                                                    execCommand: 'docker images', 
+                                                    execTimeout: 120000
+                                            ),
+
+                                            sshTransfer(
+                                                    execCommand: "docker ps", 
+                                                    execTimeout: 120000
+                                            ),
+
                                              sshTransfer(
                                                     execCommand: "docker pull $img", 
                                                     execTimeout: 120000
