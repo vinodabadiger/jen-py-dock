@@ -3,6 +3,8 @@ pipeline{
     agent any
     environment{
     registry = "vinoda32/python"
+    duser= vinoda32
+    dpass= $Dpass
     }
         stages{
 
@@ -15,89 +17,96 @@ pipeline{
             stage('build'){
                 steps{
                     script{
+                    print $dpass
                     img = registry + ":${env.BUILD_ID}"
-                    sh "docker build -t $img ." 
+                    print $img
+                    // sh "docker build -t $img ." 
                     }
                 }  
             } 
 
              
-            stage('push'){
-                steps{
-                    withDockerRegistry(credentialsId: 'docker-cred', url: 'https://index.docker.io/v1/') {
-                      sh " docker push $img "
-                    }  
-               }
-            }
+            // stage('push'){
+            //     steps{
+            //         withDockerRegistry(credentialsId: 'docker-cred', url: 'https://index.docker.io/v1/') {
+            //           sh " docker push $img "
+            //         }  
+            //    }
+            // }
 
-            stage('ssh'){
-                steps{
-                    script{
-                        sshPublisher(
-                            publishers: [
-                                sshPublisherDesc(
-                                    configName: 'production',
-                                    verbose: true ,
-                                        transfers: [
-                                            sshTransfer(
-                                                    execCommand: 'docker images', 
-                                                    execTimeout: 120000
-                                            ),
+            // stage('ssh'){
+            //     steps{
+            //         script{
+            //             sshPublisher(
+            //                 publishers: [
+            //                     sshPublisherDesc(
+            //                         configName: 'production',
+            //                         verbose: true ,
+            //                             transfers: [
+            //                                 sshTransfer(
+            //                                         execCommand: 'docker login --username $duser --password $dpass', 
+            //                                         execTimeout: 120000
+            //                                 ),
 
-                                            sshTransfer(
-                                                    execCommand: 'docker ps', 
-                                                    execTimeout: 120000
-                                            ),
+            //                                 sshTransfer(
+            //                                         execCommand: 'docker images', 
+            //                                         execTimeout: 120000
+            //                                 ),
 
-                                            sshTransfer(
-                                                    execCommand: "docker stop python ", 
-                                                    execTimeout: 120000
-                                            ),
+            //                                 sshTransfer(
+            //                                         execCommand: 'docker ps', 
+            //                                         execTimeout: 120000
+            //                                 ),
 
-                                            sshTransfer(
-                                                    execCommand: "docker rm python", 
-                                                    execTimeout: 120000
-                                            ),
+            //                                 sshTransfer(
+            //                                         execCommand: "docker stop python ", 
+            //                                         execTimeout: 120000
+            //                                 ),
 
-                                            sshTransfer(
-                                                    execCommand: 'docker images', 
-                                                    execTimeout: 120000
-                                            ),
+            //                                 sshTransfer(
+            //                                         execCommand: "docker rm python", 
+            //                                         execTimeout: 120000
+            //                                 ),
 
-                                            sshTransfer(
-                                                    execCommand: "docker ps", 
-                                                    execTimeout: 120000
-                                            ),
+            //                                 sshTransfer(
+            //                                         execCommand: 'docker images', 
+            //                                         execTimeout: 120000
+            //                                 ),
 
-                                             sshTransfer(
-                                                    execCommand: "docker pull $img", 
-                                                    execTimeout: 120000
-                                            ),
+            //                                 sshTransfer(
+            //                                         execCommand: "docker ps", 
+            //                                         execTimeout: 120000
+            //                                 ),
 
-                                             sshTransfer(
-                                                    execCommand: "docker run -d -p 8080:8080 --name=python $img", 
-                                                    execTimeout: 120000
-                                            ),
+            //                                  sshTransfer(
+            //                                         execCommand: "docker pull $img", 
+            //                                         execTimeout: 120000
+            //                                 ),
+
+            //                                  sshTransfer(
+            //                                         execCommand: "docker run -d -p 8080:8080 --name=python $img", 
+            //                                         execTimeout: 120000
+            //                                 ),
                                             
-                                        ], 
+            //                             ], 
 
-                                    usePromotionTimestamp: false, 
-                                    useWorkspaceInPromotion: false
+            //                         usePromotionTimestamp: false, 
+            //                         useWorkspaceInPromotion: false
                                     
-                                )
-                            ]
-                        )
-                    }
-                }
+            //                     )
+            //                 ]
+            //             )
+            //         }
+            //     }
            
           
-            }
+            // }
 
-            stage('cleanup'){
-                steps{
-                   sh "docker rmi $img "
-                }  
-            }
+            // stage('cleanup'){
+            //     steps{
+            //        sh "docker rmi $img "
+            //     }  
+            // }
         }
 
 }
