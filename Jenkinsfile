@@ -47,15 +47,6 @@ pipeline{
                                     configName: 'production',
                                     verbose: true ,
                                         transfers: [
-                                            sshTransfer(
-                                                    execCommand: 'echo ${dpass} >> ./home/ec2-user/pass.txt', 
-                                                    execTimeout: 120000
-                                            ),
-
-                                            // sshTransfer(
-                                            //         execCommand: 'echo ${dpass} >> ./home/ec2-user/pass.txt', 
-                                            //         execTimeout: 120000
-                                            // ),
 
                                             sshTransfer(
                                                     execCommand: 'cat ~/pass.txt |docker login https://index.docker.io/v1/ --username $duser --password-stdin', 
