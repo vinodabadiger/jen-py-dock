@@ -26,7 +26,7 @@ pipeline{
                     print "${dpass}"
                     img = registry + ":${env.BUILD_ID}"
                     print "${img}"
-                    // sh "docker build -t $img ." 
+                    sh "docker build -t $img ." 
                     }
                 }  
             } 
