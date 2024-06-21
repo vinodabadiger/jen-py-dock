@@ -4,7 +4,8 @@ pipeline{
     environment{
     registry = "vinoda32/python"
     duser= "vinoda32"
-    dpass= "${Dpass}"
+    // dpass= "${Dpass}"
+    dpass=  credentials('Dpass')
     }
         stages{
 
