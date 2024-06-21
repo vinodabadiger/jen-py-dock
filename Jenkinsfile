@@ -3,9 +3,6 @@ pipeline{
     agent any
     environment{
     registry = "vinoda32/python"
-    duser= "vinoda32"
-    // dpass= "${Dpass}"
-    dpass=  credentials('Dpass')
     }
         stages{
 
@@ -18,10 +15,6 @@ pipeline{
             stage('build'){
                 steps{
                     script{
-                    // sh "echo ${dpass} >> ./home/ec2-user/pass.txt"
-                    // sh "cat ./home/ec2-user/pass.txt"
-                    print "${duser}"
-                    print "${dpass}"
                     img = registry + ":${env.BUILD_ID}"
                     print "${img}"
                     sh "docker build -t $img ." 
