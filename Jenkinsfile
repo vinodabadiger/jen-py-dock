@@ -17,6 +17,7 @@ pipeline{
             stage('build'){
                 steps{
                     script{
+                    print "${duser}"
                     print "${dpass}"
                     img = registry + ":${env.BUILD_ID}"
                     print "${img}"
