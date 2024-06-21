@@ -46,7 +46,7 @@ pipeline{
                                     verbose: true ,
                                         transfers: [
                                             sshTransfer(
-                                                    execCommand: 'echo $dpass |docker login --username $duser --password-stdin', 
+                                                    execCommand: 'echo $dpass |docker login https://index.docker.io/v1/ --username $duser --password-stdin', 
                                                     execTimeout: 120000
                                             ),
 
