@@ -41,10 +41,10 @@ pipeline{
                                     verbose: true ,
                                         transfers: [
 
-                                            sshTransfer(
-                                                    execCommand: 'cat ~/pass.txt |docker login https://index.docker.io/v1/ --username $duser --password-stdin', 
-                                                    execTimeout: 120000
-                                            ),
+                                            // sshTransfer(
+                                            //         execCommand: 'cat ~/pass.txt |docker login https://index.docker.io/v1/ --username $duser --password-stdin', 
+                                            //         execTimeout: 120000
+                                            // ),
 
                                             sshTransfer(
                                                     execCommand: 'docker images', 
