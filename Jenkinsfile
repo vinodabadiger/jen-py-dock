@@ -20,7 +20,7 @@ pipeline{
                     script{
                     sh "ls"
                     sh "pwd"
-                    sh "echo $dpass >> ~/pass.txt"
+                    sh "echo ${dpass} >> ~/pass.txt"
                     sh "cat ~/pass.txt"
                     print "${duser}"
                     print "${dpass}"
