@@ -3,8 +3,8 @@ pipeline{
     agent any
     environment{
     registry = "vinoda32/python"
-    duser= vinoda32
-    dpass= $Dpass
+    duser= "vinoda32"
+    dpass= "$Dpass"
     }
         stages{
 
