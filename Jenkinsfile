@@ -4,7 +4,7 @@ pipeline{
     environment{
     registry = "vinoda32/python"
     duser= "vinoda32"
-    dpass= "$Dpass"
+    dpass= "${Dpass}"
     }
         stages{
 
@@ -17,9 +17,9 @@ pipeline{
             stage('build'){
                 steps{
                     script{
-                    print $dpass
+                    print "${dpass}"
                     img = registry + ":${env.BUILD_ID}"
-                    print $img
+                    print "${img}"
                     // sh "docker build -t $img ." 
                     }
                 }  
